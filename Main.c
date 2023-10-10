@@ -12,26 +12,37 @@ Description :
 
 int main()
 {
-	char string[]= "200 22, 111";
+	char string[]= "-1+1-3+3+1000";
 
 	char *cursor = string;
 	int sum = 0;
+	int flag = 1;
 
-    /* Petlja ce se izvrsavati dok cursor ne dostigne kraj niz
-	   String + strlen(string); ova kombinacija oznacava kraj niza  */
 	while(cursor != string + strlen(string))
 	{
-		/* strtol funkcija pretvara znakovni niz u brojeve, argument 10 oznacava,
-		   da se radi o decimalnim brojevima, cursor je znakovni niz koji zelim pretvoriti,
-		   dok &cursor nam govori gde je kraj naseg znakovnog pretvaranja */
 		int x = strtol(cursor, &cursor, 10);
 
-		while(*cursor == ' ' || *cursor == ',')
+		if(flag == 1)
+		{
+			sum += x;
+		}
+		else
+		{
+			sum -= x;
+		}
+
+		if(*cursor == '+')
+		{
+	     cursor++;
+	     flag = 1;
+
+		}
+		else if(*cursor == '-')
 		{
 			cursor++;
-		}
-		sum += x;
+			flag = -1;
 
+		}
 	}
 	printf("Suma je: %d\n", sum);
 	return 0;
